@@ -1,5 +1,5 @@
 const GuestLayout = ({ children }) => {
-    return <div className="font-sans text-gray-900 antialiased">{children}</div>
-}
+  return <div className="font-sans text-gray-900 antialiased">{children}</div>;
+};
 
-export default GuestLayout
+export default GuestLayout;

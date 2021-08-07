@@ -1,7 +1,7 @@
-import { useState, useEffect, Fragment, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { useAuth } from '@/hooks/auth';
-import { encrypt, decrypt } from '@/hooks/encryption';
-import { create, list } from '@/services/activity';
+import { decrypt } from '@/hooks/encryption';
+import { list } from '@/services/activity';
 
 const TodaySummary = ({ appendText = () => {} }) => {
   const { encryptionPackage } = useAuth({ middleware: 'auth' });
@@ -60,8 +60,7 @@ const TodaySummary = ({ appendText = () => {} }) => {
 
   return (
     <div className="flex mb-10 item-center flex-wrap">
-      <div className="mr-3 text-sm text-gray-400 py-1">Today's vibe</div>{' '}
-      {emojis}
+      <div className="mr-3 text-sm text-gray-400 py-1">Today</div> {emojis}
     </div>
   );
 };

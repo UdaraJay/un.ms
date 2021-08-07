@@ -24,7 +24,6 @@ const navigation = [
 ];
 
 const secondaryNavigation = [
-  { name: 'Learn', href: '/learn' },
   { name: 'About', href: '/about' },
   { name: 'Settings', href: '/settings' },
 ];
@@ -203,9 +202,9 @@ export default function Example({ header, children }) {
         {/* Content area */}
         <div className="flex-1 flex flex-col">
           <div className="w-full max-w-4xl mx-auto md:px-8 xl:px-0">
-            <div className="relative z-10 flex-shrink-0 h-16 bg-white border-b border-gray-200 flex">
+            <div className="relative z-10 flex-shrink-0 h-16 bg-white flex mt-1.5 sm:px-5 md:px-0">
               <button
-                className="border-r border-gray-200 px-4 text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-purple-500 md:hidden"
+                className="px-4 text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-purple-500 md:hidden"
                 onClick={() => setSidebarOpen(true)}
               >
                 <span className="sr-only">Open sidebar</span>
@@ -250,11 +249,9 @@ export default function Example({ header, children }) {
 
           <main className="flex-1 overflow-y-auto focus:outline-none">
             <div className="relative max-w-4xl mx-auto md:px-8 xl:px-0">
-              <div className="pt-10 pb-16">
-                <div className="px-4 sm:px-10 md:px-0">
-                  <div>{header}</div>
-                  {children}
-                </div>
+              <div className="pt-10 pb-16 px-5 sm:px-10 md:px-0">
+                <div>{header}</div>
+                {children}
               </div>
             </div>
           </main>

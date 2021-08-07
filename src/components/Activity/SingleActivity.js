@@ -58,10 +58,7 @@ const SingleActivity = ({ activity }) => {
         return moment.utc(activity.created_at).local().format('h:MM a');
     }
 
-    return moment
-      .utc(activity.created_at)
-      .local()
-      .format('MMM Do YYYY, h:MM a');
+    return moment.utc(activity.created_at).local().format('MMM Do YYYY, h:MMa');
   };
 
   if (deleted) return null;

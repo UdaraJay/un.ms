@@ -10,13 +10,13 @@ const PageLayout = ({ children }) => {
         <title>Unanimous</title>
       </Head>
       <div className="max-w-7xl mx-auto px-6 sm:px-20 lg:px-10">
-        <div className="max-w-prose mx-auto mt-16">
+        <div className="max-w-prose mx-auto pt-16">
           <Link href="/">
             <a>
-              <ApplicationLogo className="w-10 h-10" />
+              <ApplicationLogo className="w-10 h-10 stroke-none fill-current" />
             </a>
           </Link>
-          <div className="mt-10 mb-40">{children}</div>
+          <div className="mt-10 pb-40">{children}</div>
           <Footer />
         </div>
       </div>

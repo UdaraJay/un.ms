@@ -1,6 +1,6 @@
 {
   "name": "Un.mS",
-  "short_name": "UnmS",
+  "short_name": "un.ms",
   "icons": [
     {
       "src": "/unms-192.png",
@@ -19,8 +19,8 @@
       "type": "image/png"
     }
   ],
-  "theme_color": "#FFFFFF",
-  "background_color": "#FFFFFF",
+  "theme_color": "#ffffff",
+  "background_color": "#ffffff",
   "start_url": "/",
   "display": "minimal-ui",
   "orientation": "portrait"
