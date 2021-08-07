@@ -57,7 +57,7 @@ const Activity = () => {
     const data = { text, sentiment, emojis: emojiCounter };
     const { data: encryptedData, iv } = await encrypt(encryptionPackage, data);
     const encryptedPackage = { data: encryptedData, iv: iv };
-    const result = create(encryptedPackage);
+    const result = await create(encryptedPackage);
 
     // now decrypt it
     // const decryptedData = await decrypt(encryptionPackage, encryptedData);
