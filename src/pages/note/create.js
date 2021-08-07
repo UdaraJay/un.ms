@@ -1,4 +1,4 @@
-import AppLayout from '@/components/Layouts/AppLayout_old';
+import AppLayout from '@/components/Layouts/AppLayout';
 
 const CreateNote = () => {
   return (
