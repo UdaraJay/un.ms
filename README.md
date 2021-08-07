@@ -13,7 +13,7 @@
 - PWA you can install on desktop and mobile
 - Markdown import/export
 
-> I took to building this in public because it's a passion-project, and whilst others are welcomed to fork or use this code in their own products, development decisions are centered around un.ms and some of my needs. However, I'm always open to productive suggestions and changes.
+> I took to building this in public because it's a passion-project, and whilst others are welcomed to fork or use this code in their own products, development decisions are centered around un.ms and some of my needs. However, I'm always open to productive suggestions and changes in the form of issues and pull requests.
 
 - Learn how client-side encryption is implemented on un.ms
 - Contribute features or suggest changes you want to see on un.ms
