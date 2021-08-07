@@ -10,6 +10,7 @@ import TextareaAutosize from 'react-textarea-autosize';
 import TodaySummary from '@/components/Activity/TodaySummary';
 import ActivityTutorial from '@/components/Activity/ActivityTutorial';
 import SingleActivity from '@/components/Activity/SingleActivity';
+import pause from '@/lib/pause';
 
 const ActivityList = ({ index }) => {
   const { data } = list(index);
@@ -58,6 +59,8 @@ const Activity = () => {
     const { data: encryptedData, iv } = await encrypt(encryptionPackage, data);
     const encryptedPackage = { data: encryptedData, iv: iv };
     const result = await create(encryptedPackage);
+
+    await pause(700);
 
     // now decrypt it
     // const decryptedData = await decrypt(encryptionPackage, encryptedData);
