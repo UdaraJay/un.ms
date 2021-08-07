@@ -1,22 +1,24 @@
-<img src="/public/unms.svg" height="80px">
-
-### un.ms
-
-[un.ms](https://un.ms) is a simple tool for taking notes and and synchroning them across devices.
+<p align="center">
+  <img align="center" src="/public/unms-color.png" height="80px"/>
+</p>
+<p align="center">
+  <a href="https://un.ms">un.ms</a> is a simple tool for taking notes <br/> and synchroning them across devices.
+</p>
 
 ### Features
 
 - Client-side encryption with two keys (the user's data never leaves their device unencrypted.)
 - Minimal UI for writing, reading and sharing notes and logs
+- PWA you can install on desktop and mobile
 - Markdown import/export
 
-> I took to building this in public because it's a passion-project, and whilst others are welcome to fork or use this code in their own products, development decisions are centered around un.ms.
+> I took to building this in public because it's a passion-project, and whilst others are welcomed to fork or use this code in their own products, development decisions are centered around un.ms.
 
-### This repo is public to...
+### Use this repo to:
 
-- Share how to build a client-side encryption implementation.
-- Letting the public contribute to un.ms. If you want to get involved, I'm happy to consider PRs and work together. Please create issues with your ideas first though.
-- Clone it to build your own.
+- Learn how client-side encryption is implemented on un.ms
+- Contribute feature or suggest changes you want to see on the service
+- Clone it, learn from it, build your own
 
 ### Client-side encryption strategy
 
