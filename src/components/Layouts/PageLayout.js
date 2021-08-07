@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Head from 'next/head';
 import ApplicationLogo from '@/components/ApplicationLogo';
+import Footer from '@/components/Layouts/Footer';
 
 const PageLayout = ({ children }) => {
   return (
@@ -15,7 +16,8 @@ const PageLayout = ({ children }) => {
               <ApplicationLogo className="w-10 h-10" />
             </a>
           </Link>
-          <div className="mt-10">{children}</div>
+          <div className="mt-10 mb-40">{children}</div>
+          <Footer />
         </div>
       </div>
     </>
