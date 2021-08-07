@@ -1,11 +1,12 @@
+<br></br>
 <p align="center">
-  <img align="center" src="/public/unms-color.png" height="80px"/>
+  <a href="https://un.ms"><img align="center" src="/public/unms-color.png" height="80px"/></a>
 </p>
 <p align="center">
-  <a href="https://un.ms">un.ms</a> is a simple tool for taking notes <br/> and synchronizing them across devices.
-</p>
+  <a href="https://un.ms">un.ms</a> is a simple tool for taking notes <br/> and logging activity across all your devices.
+</p><br></br>
 
-**FEATURES**
+#### FEATURES
 
 - Client-side encryption with two keys (the user's data never leaves their device unencrypted.)
 - Minimal UI for writing, reading and sharing notes and logs
@@ -18,7 +19,8 @@
 - Contribute features or suggest changes you want to see on un.ms
 - Clone it, learn from it, build your own
 
-### Client-side encryption strategy
+
+#### CLIENT-SIDE ENCRYPTION STRATEGY
 
 If you're learning about client-side encryption, I highly recommend reading about [1Password's security design](https://1password.com/files/1Password-White-Paper.pdf). it's a chock-full of most things you need to know to get started. In fact, this was inspired by 1Password's
 design. We don't (and can't) do a bunch of the things they do, but it's a great reference for what we're doing here...
