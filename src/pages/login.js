@@ -13,7 +13,7 @@ import { KeyIcon } from '@heroicons/react/solid';
 import { generateAuthenticationKey } from '@/hooks/security';
 
 const Login = () => {
-  const { login } = useAuth({ middleware: 'guest' });
+  const { login, user } = useAuth({ middleware: 'guest' });
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState([]);
@@ -24,6 +24,8 @@ const Login = () => {
     const pwd = await generateAuthenticationKey(email, password);
     login({ email, password: pwd, setErrors });
   };
+
+  if (user) return null;
 
   return (
     <GuestLayout>

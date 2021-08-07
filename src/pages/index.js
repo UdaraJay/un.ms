@@ -1,33 +1,49 @@
-import Link from 'next/link';
-import Head from 'next/head';
-import ApplicationLogo from '@/components/ApplicationLogo';
 import { useEffect } from 'react';
-import { IdentificationIcon } from '@heroicons/react/solid';
+import { IdentificationIcon, AtSymbolIcon } from '@heroicons/react/solid';
 import PageLayout from '@/components/Layouts/PageLayout';
+import { useAuth } from '@/hooks/auth';
 
 export default function Index() {
+  const { user } = useAuth();
+
   return (
     <PageLayout>
       <div className="max-w-sm">
         <p>A private place for logging activity and keeping track of things.</p>
-        <div className="relative z-0 inline-flex shadow-sm rounded-md mt-5">
-          <a
-            href="/register"
-            className="relative inline-flex items-center px-4 py-1.5 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500"
-          >
-            <IdentificationIcon
-              className="-ml-1 mr-2 h-4 w-4 text-gray-600"
-              aria-hidden="true"
-            />
-            Create an account
-          </a>
-          <a
-            href="/login"
-            className="-ml-px relative inline-flex items-center px-3 py-1.5 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500"
-          >
-            Sign in
-          </a>
-        </div>
+        {!user ? (
+          <div className="relative z-0 inline-flex shadow-sm rounded-md mt-5">
+            <a
+              href="/register"
+              className="relative inline-flex items-center px-4 py-1.5 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500"
+            >
+              <IdentificationIcon
+                className="-ml-1 mr-2 h-4 w-4 text-gray-600"
+                aria-hidden="true"
+              />
+              Create an account
+            </a>
+            <a
+              href="/login"
+              className="-ml-px relative inline-flex items-center px-3 py-1.5 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500"
+            >
+              Sign in
+            </a>
+          </div>
+        ) : (
+          <div className="relative z-0 inline-flex shadow-sm rounded-md mt-5">
+            <a
+              href="/activity"
+              className="relative inline-flex items-center px-4 py-1.5 rounded-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500"
+            >
+              <AtSymbolIcon
+                className="-ml-1 mr-1 h-4 w-4 text-gray-600"
+                aria-hidden="true"
+              />
+              {user?.username}
+            </a>
+          </div>
+        )}
+
         <div className="max-w-lg mx-auto mt-10">
           <ul role="list" className="mt-0 divide-y">
             <li>
