@@ -24,8 +24,9 @@ const navigation = [
 ];
 
 const secondaryNavigation = [
-  { name: 'Help', href: '#' },
-  { name: 'About', href: '#' },
+  { name: 'Learn', href: '/learn' },
+  { name: 'About', href: '/about' },
+  { name: 'Settings', href: '/settings' },
 ];
 
 const tabs = [
@@ -44,13 +45,6 @@ function classNames(...classes) {
 export default function Example({ header, children }) {
   const { user, logout } = useAuth({ middleware: 'auth' });
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [automaticTimezoneEnabled, setAutomaticTimezoneEnabled] = useState(
-    true
-  );
-  const [
-    autoUpdateApplicantDataEnabled,
-    setAutoUpdateApplicantDataEnabled,
-  ] = useState(false);
 
   return (
     <SecureProvider>
@@ -138,6 +132,14 @@ export default function Example({ header, children }) {
                           {item.name}
                         </a>
                       ))}
+
+                      <div
+                        key="logout"
+                        onClick={logout}
+                        className="group border-l-4 border-transparent py-2 px-3 flex items-center text-base font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50 cursor-pointer"
+                      >
+                        Logout
+                      </div>
                     </div>
                   </nav>
                 </div>
@@ -189,7 +191,7 @@ export default function Example({ header, children }) {
                 <a
                   key={'logout'}
                   onClick={logout}
-                  className="group border-l-4 border-transparent py-1 px-3 flex items-center text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50"
+                  className="group border-l-4 border-transparent py-1 px-3 flex items-center text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50 cursor-pointer"
                 >
                   Logout
                 </a>

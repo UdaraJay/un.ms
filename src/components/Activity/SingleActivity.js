@@ -82,7 +82,6 @@ const SingleActivity = ({ activity }) => {
           ${decryptedData?.sentiment > 1 && 'text-green-500'}
         `}
       >
-        {console.log(decryptedData?.text, decryptedData?.text.length)}
         {decryptedData?.text}
       </div>
       <div className="group select-none flex item-center align-middle text-gray-400 mt-2 text-sm">

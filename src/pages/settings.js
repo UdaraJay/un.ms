@@ -101,7 +101,7 @@ const Settings = () => {
           </div>
         </div>
 
-        <div className="mt-10 sm:mt-0">
+        {/* <div className="mt-10 sm:mt-0">
           <div className="md:grid md:grid-cols-3 md:gap-6">
             <div className="md:col-span-1">
               <div className="px-4 sm:px-0">
@@ -257,6 +257,7 @@ const Settings = () => {
             </div>
           </div>
         </div>
+       */}
       </div>
     </AppLayout>
   );

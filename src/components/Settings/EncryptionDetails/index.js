@@ -7,37 +7,28 @@ const EncryptionDetails = () => {
   const { user, encryptionPackage } = useAuth({ middleware: 'auth' });
   const [publicKey, setPublicKey] = useState('');
   const [mukPresent, setMukPresent] = useState(false);
+  const [salt, setSalt] = useState('loading...');
 
   useEffect(() => {
     if (!encryptionPackage) return;
+    let active = true;
+    load();
+    return () => {
+      active = false;
+    };
 
-    async function parseDetails() {
-      const publicKey = await crypto.subtle.importKey(
-        'jwk',
-        encryptionPackage.data.publicKey,
-        {
-          name: 'RSA-OAEP',
-          hash: 'SHA-256',
-        },
-        true,
-        ['encrypt']
-      );
-      const publicKeyString = await exportPublicKey(publicKey);
-      setPublicKey(publicKeyString);
-
+    async function load() {
       const mukPresent = await checkIfKeyExists(MUK_STORAGE_ID);
+      const b64 = window.btoa(
+        ab2str(new Uint8Array(encryptionPackage.data.salt))
+      );
+
+      if (!active) {
+        return;
+      }
+      setSalt(b64);
       setMukPresent(mukPresent);
-
-      // console.log('salt', ...encryptionPackage.data.salt);
-      // const b64 = window.btoa(
-      //   ab2str(new Uint8Array(encryptionPackage.data.salt))
-      // );
-      // console.log('salt b64', b64);
-      // const back = new Uint8Array(str2ab(window.atob(b64)), null, 16);
-      // console.log('back to salt', ...back);
     }
-
-    parseDetails();
   }, [encryptionPackage]);
 
   return (
@@ -107,14 +98,6 @@ const EncryptionDetails = () => {
                       window.btoa(
                         ab2str(new Uint8Array(encryptionPackage.data.salt))
                       )}
-                  </dd>
-                </div>
-                <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                  <dt className="text-sm font-medium text-gray-500">
-                    Public Key
-                  </dt>
-                  <dd className="mt-1 text-xs text-gray-900 sm:mt-0 sm:col-span-2 break-all">
-                    <p>{publicKey}</p>
                   </dd>
                 </div>
               </dl>

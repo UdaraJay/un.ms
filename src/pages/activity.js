@@ -18,7 +18,7 @@ const ActivityList = ({ index }) => {
 };
 
 const Activity = () => {
-  const { encryptionPackage } = useAuth({ middleware: 'auth' });
+  const { user, encryptionPackage } = useAuth({ middleware: 'auth' });
   const [text, setText] = useState('');
   const [sentiment, setSentiment] = useState(0);
   const [saving, setSaving] = useState(false);
@@ -58,13 +58,8 @@ const Activity = () => {
     const data = { text, sentiment, emojis: emojiCounter };
     const { data: encryptedData, iv } = await encrypt(encryptionPackage, data);
     const encryptedPackage = { data: encryptedData, iv: iv };
-    const result = await create(encryptedPackage);
-
-    await pause(700);
-
-    // now decrypt it
-    // const decryptedData = await decrypt(encryptionPackage, encryptedData);
-    // console.log('decryptedData', decryptedData);
+    await create(encryptedPackage);
+    // await pause(700);
 
     // once done
     setSaving(false);
@@ -86,13 +81,14 @@ const Activity = () => {
     }
   };
 
+  if (!encryptionPackage) return null;
+
   const pages = [];
 
   for (let i = 1; i <= cnt; i++) {
     pages.push(<ActivityList index={i} key={i} />);
   }
 
-  console.count('re-render activity');
   return (
     <AppLayout>
       <div className="w-2/3 mt-5">

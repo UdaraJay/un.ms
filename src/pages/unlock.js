@@ -77,7 +77,6 @@ const Unlock = () => {
           return;
         }
       } catch (err) {
-        console.log('unlock error');
         setLoading(false);
         setPassword('');
         return;

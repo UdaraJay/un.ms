@@ -50,8 +50,8 @@ export default function Index() {
                     Take notes
                   </div>
                   <p className="text-sm text-gray-500">
-                    Write notes and access them, from anywhere you have an
-                    internet connection. Publish what you choose, publicly.
+                    Write notes and access them from anywhere. You can make some
+                    notes public if you'd like.
                   </p>
                 </div>
               </div>

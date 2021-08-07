@@ -27,7 +27,7 @@ export const SecureProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    if (!user) router.push('/login');
+    if (!user) return;
     if (!encryptionPackage) return;
 
     let active = true;
