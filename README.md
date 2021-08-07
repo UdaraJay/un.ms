@@ -2,7 +2,7 @@
   <img align="center" src="/public/unms-color.png" height="80px"/>
 </p>
 <p align="center">
-  <a href="https://un.ms">un.ms</a> is a simple tool for taking notes <br/> and synchroning them across devices.
+  <a href="https://un.ms">un.ms</a> is a simple tool for taking notes <br/> and synchronizing them across devices.
 </p>
 
 ### Features
