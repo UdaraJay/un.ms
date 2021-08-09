@@ -20,14 +20,14 @@ const PublicNote = () => {
         <title>Unanimous</title>
       </Head>
       <div className="max-w-7xl mx-auto px-6 sm:px-20 lg:px-10">
-        <div className="max-w-prose mx-auto pt-16">
+        <div className="max-w-md mx-auto pt-16">
           <Link href="/">
             <a>
               <ApplicationLogo className="w-7 h-7 stroke-none fill-current" />
             </a>
           </Link>
           <div className="mt-10 pb-40">
-            <h1 className="font-bold max-w-md text-gray-700 leading-tight text-4xl">
+            <h1 className="font-bold text-gray-700 leading-tight text-4xl">
               {note.title}
             </h1>
             <div className="text-gray-400 text-sm mb-10 mt-3">
