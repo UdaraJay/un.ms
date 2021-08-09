@@ -27,10 +27,10 @@ const PublicNote = () => {
             </a>
           </Link>
           <div className="mt-10 pb-40">
-            <h1 className="font-semibold text-gray-900 leading-relaxed text-4xl">
+            <h1 className="font-bold max-w-md text-gray-700 leading-tight text-4xl">
               {note.title}
             </h1>
-            <div className="text-gray-400 text-sm mb-10 ">
+            <div className="text-gray-400 text-sm mb-10 mt-3">
               <span className="font-medium">@{note.username}</span> •{' '}
               {moment.utc(note.created_at).format('dddd, MMMM Do YYYY, h:mm a')}
             </div>

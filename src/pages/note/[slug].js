@@ -319,11 +319,9 @@ const WriteNote = () => {
             onChange={onTitleChange}
             minRows={1}
             onKeyDown={onTitleEnter}
-            className={`resize-none max-w-lg mt-3 mb-2 h-28 p-0 border block w-full text-gray-600
+            className={`resize-none max-w-sm leading-relaxed mt-3 mb-2 h-28 p-0 border block w-full text-gray-600
             border-transparent outline-none focus:outline-none focus:ring-0 focus:border-transparent
-            placeholder-gray-300 text-4xl sm:text-3xl font-medium duration-500 ease-in-out
-            overflow-hidden whitespace-pre-wrap leading-snug shadow-none
-            ${saving && 'animate-pulse'}
+            placeholder-gray-300 text-4xl sm:text-3xl font-semibold overflow-hidden whitespace-pre-wrap shadow-none
           `}
             placeholder="Title"
             autoFocus
