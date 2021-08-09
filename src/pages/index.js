@@ -10,9 +10,7 @@ export default function Index() {
     <PageLayout>
       <div>
         <div className="max-w-sm">
-          <p>
-            A private place for logging activity and keeping track of things.
-          </p>
+          <p>A tool for logging activity and keeping track of things.</p>
           {!user ? (
             <div className="relative z-0 inline-flex shadow-sm rounded-md mt-5">
               <a

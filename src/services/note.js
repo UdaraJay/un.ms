@@ -33,7 +33,7 @@ export const updateNote = async (slug, data) => {
 };
 
 export const deleteNote = (id) => {
-  return api.post(`/api/note/${id}`);
+  return api.post(`/api/note/${id}/delete`);
 };
 
 export const togglePublic = (slug) => {

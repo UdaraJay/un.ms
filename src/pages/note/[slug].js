@@ -19,12 +19,20 @@ import { Switch, Menu, Transition } from '@headlessui/react';
 import moment from 'moment-timezone';
 import _ from 'lodash';
 import pause from '@/lib/pause';
+import { deleteNote as deleteNoteApiCall } from '@/services/note';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
 }
 
 const SaveButton = ({ isPublic, save, slug, saving }) => {
+  const router = useRouter();
+
+  const deleteNote = async (slug) => {
+    await deleteNoteApiCall(slug);
+    router.push('/notes');
+  };
+
   return (
     <span className="relative z-0 inline-flex shadow-sm rounded-md">
       <button
@@ -96,7 +104,7 @@ const SaveButton = ({ isPublic, save, slug, saving }) => {
                   <Menu.Item>
                     {({ active }) => (
                       <button
-                        onClick={() => {}}
+                        onClick={async () => await deleteNote(slug)}
                         className={classNames(
                           active
                             ? 'bg-gray-100 text-gray-900'
