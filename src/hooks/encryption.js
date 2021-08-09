@@ -175,7 +175,7 @@ export const unwrapKey = (wrapped, wrappingKey, iv) => {
   );
 };
 
-const unwrapEncyptionKey = async (encryptionPackage) => {
+const unwrapEncryptionKey = async (encryptionPackage) => {
   if (!encryptionPackage) return;
 
   const muk = await getMUK();
@@ -192,7 +192,7 @@ export const encrypt = async (encryptionPackage, data) => {
   const objJsonBuffer = enc.encode(objJsonStr);
 
   const iv = await crypto.getRandomValues(new Uint8Array(12));
-  const key = await unwrapEncyptionKey(encryptionPackage);
+  const key = await unwrapEncryptionKey(encryptionPackage);
 
   const result = await crypto.subtle.encrypt(
     {
@@ -213,7 +213,7 @@ export const decrypt = async (encryptionPackage, encryptedPackage) => {
   if (!encryptedPackage) return;
 
   const { data: encryptedData, iv } = encryptedPackage;
-  const key = await unwrapEncyptionKey(encryptionPackage);
+  const key = await unwrapEncryptionKey(encryptionPackage);
   const asArrayBuffer = base642ab(encryptedData);
 
   const result = await crypto.subtle.decrypt(

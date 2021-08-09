@@ -249,7 +249,7 @@ export default function Example({ header, children }) {
 
           <main className="flex-1 overflow-y-auto focus:outline-none">
             <div className="relative max-w-4xl mx-auto md:px-8 xl:px-0">
-              <div className="pt-10 pb-16 px-5 sm:px-10 md:px-0">
+              <div className="pt-5 pb-16 px-5 sm:px-10 md:px-0">
                 <div>{header}</div>
                 {children}
               </div>

@@ -1,19 +1,36 @@
+import { useEffect } from 'react';
+import { useRouter } from 'next/router';
 import AppLayout from '@/components/Layouts/AppLayout';
+import { create } from '@/services/note';
 
+// This just needs to initialize a new note
+// with the server and redirect to the edit
+// page; this can show a loading screen while
+// it happens
 const CreateNote = () => {
-  return (
-    <AppLayout
-      header={
-        <h2 className="font-semibold text-sm uppercase text-gray-400 leading-tight">
-          Create a new note
-        </h2>
+  const router = useRouter();
+
+  useEffect(() => {
+    let active = true;
+    load();
+    return () => {
+      active = false;
+    };
+
+    async function load() {
+      const slug = await create();
+
+      if (!active) {
+        return;
       }
-    >
-      <div className="w-full mt-6  py-4 border-b border-gray-200 overflow-hidden">
-        <div className="">
-          <div className="">You're logged in! 2</div>
-        </div>
-      </div>
+
+      router.push(`/note/${slug}`);
+    }
+  }, []);
+
+  return (
+    <AppLayout>
+      <div>Loading....</div>
     </AppLayout>
   );
 };
