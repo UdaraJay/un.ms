@@ -12,7 +12,7 @@ const Footer = () => {
           </li>
           <li>
             <Link href="/privacy-policy">
-              <a>GitHub</a>
+              <a>Open-source</a>
             </Link>
           </li>
           <br />

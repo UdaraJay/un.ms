@@ -37,7 +37,7 @@ const ProvideSecretKey = () => {
 
     if (encryptionPackage) {
       const accountId = encryptionPackage.account_id;
-      const parseKeyToArrayBuffer = await base642ab(base64Key);
+      const parseKeyToArrayBuffer = await base642ab(secretKey);
       const rebuiltCryptoKey = await crypto.subtle.importKey(
         'raw',
         parseKeyToArrayBuffer,

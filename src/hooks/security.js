@@ -43,7 +43,6 @@ export const setupEncryptionKeys = async (accountId, password) => {
   // public-private key pair used for encryption/decryption
   const privateKeyIv = await crypto.getRandomValues(new Uint8Array(12));
 
-  // THIS IS WHERE I'M FIXING FROM
   const encryptionKey = await generateEncryptionKey();
   // This is a JWK
   const wrappedEncryptionKey = await wrapKey(encryptionKey, MUK, privateKeyIv);
@@ -70,7 +69,7 @@ export const setupEncryptionKeys = async (accountId, password) => {
     keyCheckIv: new Uint8Array(keyCheckIv),
   };
 
-  // upload things to store on server
+  // store on server
   await axios.post('/api/setup-encryption', {
     encryption_data,
   });

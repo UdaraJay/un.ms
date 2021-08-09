@@ -30,7 +30,7 @@ const CreateNote = () => {
 
   return (
     <AppLayout>
-      <div>Loading....</div>
+      <div>Creating note....</div>
     </AppLayout>
   );
 };

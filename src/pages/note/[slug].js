@@ -168,7 +168,9 @@ const WriteNote = () => {
 
     async function load() {
       // decrypt i
-      const data = await decrypt(encryptionPackage, note.data).catch(() => '');
+      const data = await decrypt(encryptionPackage, note.data).catch(() => {
+        console.log('error');
+      });
       if (!active) {
         return;
       }
@@ -201,7 +203,7 @@ const WriteNote = () => {
     _.debounce((value) => {
       const markdown = value();
       setMarkdown(markdown);
-    }, 500),
+    }, 1000),
     []
   );
 
@@ -288,9 +290,19 @@ const WriteNote = () => {
               <span className="text-sm font-medium text-gray-900">
                 {isPublic ? 'Public' : 'Private'}
               </span>
-              <span className="ml-1 text-sm text-gray-500">
-                ({isPublic ? 'unencrypted' : 'encrypted'})
-              </span>
+              {isPublic && (
+                <span className="ml-1 text-sm text-gray-500">
+                  (
+                  <a
+                    href={`https://un.ms/n/${note.slug}`}
+                    target="_blank"
+                    className="hover:text-indigo-500 select-all"
+                  >
+                    {`un.ms/n/${note.slug}`}
+                  </a>
+                  )
+                </span>
+              )}
             </Switch.Label>
           </Switch.Group>
 

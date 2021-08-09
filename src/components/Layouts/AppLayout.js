@@ -205,10 +205,10 @@ export default function Example({ header, children }) {
                   aria-hidden="true"
                 />
               </button>
-              <div className="flex-1 flex justify-between  px-4 md:px-0">
+              <div className="flex-1 flex justify-between px-4 md:px-0">
                 <div className="flex-1 flex">
                   <form className="w-full" action="#" method="GET">
-                    <div className="relative w-80 rounded-md shadow-sm">
+                    <div className="relative sm:w-40 rounded-md shadow-sm">
                       <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                         <SearchIcon
                           className="h-5 w-5 text-gray-400"
@@ -235,7 +235,7 @@ export default function Example({ header, children }) {
 
           <main className="flex-1 overflow-y-auto focus:outline-none">
             <div className="relative max-w-4xl mx-auto md:px-8 xl:px-0">
-              <div className="pt-5 pb-16 px-5 sm:px-10 md:px-0">
+              <div className="pt-5 pb-16 px-5 h-full sm:px-10 md:px-0">
                 <div>{header}</div>
                 {children}
               </div>

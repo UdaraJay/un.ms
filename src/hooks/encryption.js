@@ -156,6 +156,10 @@ export const wrapKey = (key, wrappingKey, iv) => {
 };
 
 export const unwrapKey = (wrapped, wrappingKey, iv) => {
+  if (!wrapped) return;
+  if (!wrappingKey) return;
+  if (!iv) return;
+
   return crypto.subtle.unwrapKey(
     'raw', //"jwk", "raw", "spki", or "pkcs8" (whatever was used in wrapping)
     wrapped, //the key you want to unwrap
@@ -187,12 +191,17 @@ const unwrapEncryptionKey = async (encryptionPackage) => {
 };
 
 export const encrypt = async (encryptionPackage, data) => {
+  if (!encryptionPackage) return;
+  if (!data) return;
+
   const objJsonStr = JSON.stringify(data);
   const enc = new TextEncoder();
   const objJsonBuffer = enc.encode(objJsonStr);
 
   const iv = await crypto.getRandomValues(new Uint8Array(12));
   const key = await unwrapEncryptionKey(encryptionPackage);
+
+  if (!key) return;
 
   const result = await crypto.subtle.encrypt(
     {
@@ -205,6 +214,7 @@ export const encrypt = async (encryptionPackage, data) => {
 
   const asBase64 = ab2base64(result);
   const encryptedPackage = { data: asBase64, iv: iv };
+
   return encryptedPackage;
 };
 
@@ -214,6 +224,9 @@ export const decrypt = async (encryptionPackage, encryptedPackage) => {
 
   const { data: encryptedData, iv } = encryptedPackage;
   const key = await unwrapEncryptionKey(encryptionPackage);
+
+  if (!key) return;
+
   const asArrayBuffer = base642ab(encryptedData);
 
   const result = await crypto.subtle.decrypt(
