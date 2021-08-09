@@ -22,7 +22,7 @@
 
 ## Client-side encyption strategy
 
-If you're learning about client-side encryption, I highly recommend reading about [1Password's security design](https://1password.com/files/1Password-White-Paper.pdf). it's a chock-full of most things you need to know to get started. In fact, this was inspired by 1Password's
+If you're learning about client-side encryption, I highly recommend reading about [1Password's security design](https://1password.com/files/1Password-White-Paper.pdf). It's chock-full of most things you need to know to get started. In fact, this was inspired by 1Password's
 design. We don't (and can't) do a bunch of the things they do, but it's a great reference for what we're doing here...
 
 0. Generate a salt => salt1 ↖︎ (use the user email to derive it)
