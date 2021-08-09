@@ -91,7 +91,8 @@ export default function Index() {
                       This is an open-source project, so you can learn more and
                       dig around the code{' '}
                       <a
-                        href=""
+                        href="https://github.com/UdaraJay/un.ms"
+                        target="_blank"
                         className="text-indigo-500 hover:text-indigo-600 font-medium"
                       >
                         on GitHub
