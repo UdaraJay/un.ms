@@ -1,18 +1,10 @@
 import { Fragment, useState } from 'react';
-import { Dialog, Switch, Transition } from '@headlessui/react';
-import {
-  CogIcon,
-  MenuAlt2Icon,
-  QuestionMarkCircleIcon,
-  XIcon,
-  SearchIcon,
-  LockOpenIcon,
-  LockClosedIcon,
-} from '@heroicons/react/solid';
+import { Dialog, Transition } from '@headlessui/react';
+import { MenuAlt2Icon, XIcon, SearchIcon } from '@heroicons/react/solid';
 import ApplicationLogo from '@/components/ApplicationLogo';
 import LockUnlock from '@/components/Layouts/LockUnlock';
+import NewNoteButton from '@/components/Layouts/NewNoteButton';
 import { useAuth } from '@/hooks/auth';
-import Router from 'next/router';
 import { SecureProvider } from '@/contexts/secure';
 
 const navigation = [
@@ -202,45 +194,39 @@ export default function Example({ header, children }) {
         {/* Content area */}
         <div className="flex-1 flex flex-col">
           <div className="w-full max-w-4xl mx-auto md:px-8 xl:px-0">
-            <div className="relative z-10 flex-shrink-0 h-16 bg-white flex mt-1.5 sm:px-5 md:px-0">
+            <div className="relative z-10 flex-shrink-0 h-16 bg-white flex mt-1.5 items-center sm:px-5 md:px-0">
               <button
                 className="px-4 text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-purple-500 md:hidden"
                 onClick={() => setSidebarOpen(true)}
               >
                 <span className="sr-only">Open sidebar</span>
-                <MenuAlt2Icon className="h-6 w-6" aria-hidden="true" />
+                <MenuAlt2Icon
+                  className="h-6 w-6 text-gray-900"
+                  aria-hidden="true"
+                />
               </button>
-              <div className="flex-1 flex justify-between px-4 md:px-0">
+              <div className="flex-1 flex justify-between  px-4 md:px-0">
                 <div className="flex-1 flex">
-                  <form className="w-full flex md:ml-0" action="#" method="GET">
-                    <label htmlFor="search-field" className="sr-only">
-                      Search
-                    </label>
-                    <div className="relative w-full text-gray-400 focus-within:text-gray-600">
-                      <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center">
+                  <form className="w-full" action="#" method="GET">
+                    <div className="relative w-80 rounded-md shadow-sm">
+                      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                         <SearchIcon
-                          className="flex-shrink-0 h-5 w-5"
+                          className="h-5 w-5 text-gray-400"
                           aria-hidden="true"
                         />
                       </div>
                       <input
-                        name="search-field"
-                        id="search-field"
-                        className="h-full w-full border-transparent py-2 pl-8 pr-3 text-base text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-0 focus:border-transparent focus:placeholder-gray-400 sm:hidden"
-                        placeholder="Search"
-                        type="search"
-                      />
-                      <input
-                        name="search-field"
-                        id="search-field"
-                        className="hidden h-full w-full border-transparent py-2 pl-8 pr-3 text-sm text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-0 focus:border-transparent focus:placeholder-gray-400 sm:block"
-                        placeholder="Type here to search..."
-                        type="search"
+                        type="text"
+                        name="email"
+                        id="email"
+                        className="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-10 sm:text-sm border-gray-300 rounded-md"
+                        placeholder="Quick search..."
                       />
                     </div>
                   </form>
                 </div>
                 <div className="ml-4 flex items-center md:ml-6">
+                  <NewNoteButton />
                   <LockUnlock />
                 </div>
               </div>

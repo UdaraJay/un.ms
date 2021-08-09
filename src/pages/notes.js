@@ -24,7 +24,7 @@ const Notes = () => {
       return (
         <li
           key={note.id}
-          className="col-span-1 bg-white rounded-lg border shadow-sm divide-y divide-gray-200  hover:border-indigo-500"
+          className="col-span-1 bg-white rounded-lg border shadow-sm divide-y divide-gray-200  hover:border-gray-300"
         >
           <Link href={`/note/${note.slug}`}>
             <a className="w-full flex min-h-full  items-start justify-between p-4 space-x-3">
@@ -33,8 +33,7 @@ const Notes = () => {
                   {note.title || 'Untitled'}
                 </h3>
                 <p className="text-gray-500 text-sm">
-                  updated
-                  <br /> {moment.utc(note.created_at).fromNow()}
+                  {moment.utc(note.created_at).fromNow()}
                 </p>
               </div>
               <div>

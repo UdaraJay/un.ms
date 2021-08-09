@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useRef } from 'react';
+import { Fragment, useState, useEffect, useCallback, useRef } from 'react';
 import AppLayout from '@/components/Layouts/AppLayout';
 import Editor from 'rich-markdown-editor';
 import { useRouter } from 'next/router';
@@ -8,10 +8,14 @@ import {
   togglePublic as togglePublicApiCall,
 } from '@/services/note';
 import { useAuth } from '@/hooks/auth';
-import { LockOpenIcon, LockClosedIcon } from '@heroicons/react/solid';
+import {
+  LockOpenIcon,
+  LockClosedIcon,
+  ChevronDownIcon,
+} from '@heroicons/react/solid';
 import { encrypt, decrypt } from '@/hooks/encryption';
 import TextareaAutosize from 'react-textarea-autosize';
-import { Switch } from '@headlessui/react';
+import { Switch, Menu, Transition } from '@headlessui/react';
 import moment from 'moment-timezone';
 import _ from 'lodash';
 import pause from '@/lib/pause';
@@ -19,6 +23,100 @@ import pause from '@/lib/pause';
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
 }
+
+const SaveButton = ({ isPublic, save, slug, saving }) => {
+  return (
+    <span className="relative z-0 inline-flex shadow-sm rounded-md">
+      <button
+        type="button"
+        onClick={() => save(isPublic)}
+        className="relative inline-flex items-center px-4 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500"
+      >
+        {saving && (
+          <svg
+            className="animate-spin -ml-0.5 mr-2 h-4 w-4 text-gray-500"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <circle
+              className="opacity-25"
+              cx="12"
+              cy="12"
+              r="10"
+              stroke="currentColor"
+              strokeWidth="4"
+            ></circle>
+            <path
+              className="opacity-75"
+              fill="currentColor"
+              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+            ></path>
+          </svg>
+        )}
+        Save changes
+      </button>
+      <Menu as="span" className="-ml-px relative block">
+        {({ open }) => (
+          <>
+            <Menu.Button className="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500">
+              <span className="sr-only">Open options</span>
+              <ChevronDownIcon className="h-5 w-5" aria-hidden="true" />
+            </Menu.Button>
+            <Transition
+              show={open}
+              as={Fragment}
+              enter="transition ease-out duration-100"
+              enterFrom="transform opacity-0 scale-95"
+              enterTo="transform opacity-100 scale-100"
+              leave="transition ease-in duration-75"
+              leaveFrom="transform opacity-100 scale-100"
+              leaveTo="transform opacity-0 scale-95"
+            >
+              <Menu.Items
+                static
+                className="origin-top-right absolute right-0 mt-2 -mr-1 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
+              >
+                <div className="py-1">
+                  <Menu.Item>
+                    {({ active }) => (
+                      <button
+                        onClick={() => {}}
+                        className={classNames(
+                          active
+                            ? 'bg-gray-100 text-gray-900'
+                            : 'text-gray-700',
+                          'w-full block px-4 py-2 text-sm text-left'
+                        )}
+                      >
+                        Export markdown
+                      </button>
+                    )}
+                  </Menu.Item>
+                  <Menu.Item>
+                    {({ active }) => (
+                      <button
+                        onClick={() => {}}
+                        className={classNames(
+                          active
+                            ? 'bg-gray-100 text-gray-900'
+                            : 'text-gray-700',
+                          'w-full block px-4 py-2 text-sm text-left'
+                        )}
+                      >
+                        Delete Note
+                      </button>
+                    )}
+                  </Menu.Item>
+                </div>
+              </Menu.Items>
+            </Transition>
+          </>
+        )}
+      </Menu>
+    </span>
+  );
+};
 
 const WriteNote = () => {
   const router = useRouter();
@@ -77,7 +175,6 @@ const WriteNote = () => {
       e.preventDefault();
       editorRef.current.focusAtStart();
     }
-    // shift focus to the writer
   };
 
   const onTitleChange = (e) => {
@@ -86,8 +183,10 @@ const WriteNote = () => {
   };
 
   const togglePublic = () => {
-    setIsPublic(!isPublic);
+    const setPublicTo = !isPublic;
+    setIsPublic(setPublicTo);
     togglePublicApiCall(note.slug);
+    save(setPublicTo);
   };
 
   const onChange = useCallback(
@@ -99,6 +198,10 @@ const WriteNote = () => {
   );
 
   const onSave = async () => {
+    await save(isPublic);
+  };
+
+  const save = async (isPublic) => {
     setSaving(true);
 
     // if public: write plain markdown
@@ -174,42 +277,21 @@ const WriteNote = () => {
               as="span"
               className="flex items-center align-middle ml-3 mr-3"
             >
-              <span className="text-sm font-medium text-gray-900">Public </span>
+              <span className="text-sm font-medium text-gray-900">
+                {isPublic ? 'Public' : 'Private'}
+              </span>
               <span className="ml-1 text-sm text-gray-500">
                 ({isPublic ? 'unencrypted' : 'encrypted'})
               </span>
             </Switch.Label>
           </Switch.Group>
 
-          <button
-            type="button"
-            onClick={onSave}
-            className="inline-flex items-center px-2.5 py-1.5 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-          >
-            {saving && (
-              <svg
-                className="animate-spin -ml-0.5 mr-2 h-4 w-4 text-gray-500"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-              >
-                <circle
-                  className="opacity-25"
-                  cx="12"
-                  cy="12"
-                  r="10"
-                  stroke="currentColor"
-                  strokeWidth="4"
-                ></circle>
-                <path
-                  className="opacity-75"
-                  fill="currentColor"
-                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                ></path>
-              </svg>
-            )}
-            Save changes
-          </button>
+          <SaveButton
+            isPublic={isPublic}
+            save={save}
+            slug={note.slug}
+            saving={saving}
+          />
         </div>
         <div className="mt-5">
           <div className="flex justify-between">
@@ -238,7 +320,7 @@ const WriteNote = () => {
                     </svg>
                     <a
                       href={`/note/${note.slug}`}
-                      className="ml-1 text-sm font-medium text-gray-500 hover:text-gray-700"
+                      className="ml-1 text-sm font-medium text-gray-400 hover:text-gray-600"
                     >
                       {note.slug}
                     </a>
