@@ -239,8 +239,8 @@ const WriteNote = () => {
 
   return (
     <AppLayout>
-      <div className="max-w-prose">
-        <div className="flex justify-between items-center border-b pb-5">
+      <div className="w-full">
+        <div className="flex justify-between items-center pb-5">
           <Switch.Group as="div" className="flex items-center">
             <Switch
               checked={isPublic}
@@ -302,44 +302,6 @@ const WriteNote = () => {
           />
         </div>
         <div className="mt-5">
-          <div className="flex justify-between">
-            <nav className="flex" aria-label="Breadcrumb">
-              <ol className="flex items-center space-x-1 text-sm">
-                <li>
-                  <div>
-                    <a
-                      href="/notes"
-                      className="text-gray-400 hover:text-gray-500"
-                    >
-                      Notes
-                    </a>
-                  </div>
-                </li>
-                <li>
-                  <div className="flex items-center">
-                    <svg
-                      className="flex-shrink-0 h-4 w-4 text-gray-300"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                      aria-hidden="true"
-                    >
-                      <path d="M5.555 17.776l8-16 .894.448-8 16-.894-.448z" />
-                    </svg>
-                    <a
-                      href={`/note/${note.slug}`}
-                      className="ml-1 text-sm font-medium text-gray-400 hover:text-gray-600"
-                    >
-                      {note.slug}
-                    </a>
-                  </div>
-                </li>
-              </ol>
-            </nav>
-            <div className="text-gray-400 text-sm">
-              {moment.utc(note.created_at).format('dddd, MMMM Do YYYY, h:mm a')}
-            </div>
-          </div>
           <TextareaAutosize
             value={title}
             onChange={onTitleChange}
@@ -355,6 +317,9 @@ const WriteNote = () => {
             autoFocus
             disabled={saving}
           ></TextareaAutosize>
+        </div>
+        <div className="text-gray-400 text-sm mb-10">
+          {moment.utc(note.created_at).format('dddd, MMMM Do YYYY, h:mm a')}
         </div>
         <div className="max-w-lg">
           <Editor
