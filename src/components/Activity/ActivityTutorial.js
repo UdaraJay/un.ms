@@ -1,12 +1,9 @@
-import { useState, useEffect, Fragment, useRef } from 'react';
-import { useAuth } from '@/hooks/auth';
-import { encrypt, decrypt } from '@/hooks/encryption';
-import { create, list } from '@/services/activity';
+import { list } from '@/services/activity';
 import { InformationCircleIcon } from '@heroicons/react/solid';
 
 const ActivityTutorial = () => {
   const { data: activity } = list(1);
-  if (activity.length > 3) return null;
+  if (activity.length > 2) return null;
 
   return (
     <div className="flex mb-5 w-full justify-between text-gray-500 text-sm leading-relaxed border p-5 rounded-lg">

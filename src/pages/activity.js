@@ -10,7 +10,7 @@ import TextareaAutosize from 'react-textarea-autosize';
 import TodaySummary from '@/components/Activity/TodaySummary';
 import ActivityTutorial from '@/components/Activity/ActivityTutorial';
 import SingleActivity from '@/components/Activity/SingleActivity';
-import pause from '@/lib/pause';
+import Sponsor from '@/components/Layouts/Sponsor';
 
 const ActivityList = ({ index }) => {
   const { data } = list(index);
@@ -127,12 +127,13 @@ const Activity = () => {
             {pages}
           </Transition>
           <button
-            className="inline-flex mt-4 items-center px-2.5 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            className="inline-flex mt-4 items-center px-3.5 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded-full text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             onClick={() => setCnt(cnt + 1)}
           >
-            Load More
+            Older
           </button>
         </div>
+        <Sponsor />
       </div>
     </AppLayout>
   );

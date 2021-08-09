@@ -58,6 +58,8 @@ const TodaySummary = ({ appendText = () => {} }) => {
     );
   }
 
+  if (emojis.length == 0) return null;
+
   return (
     <div className="flex mb-10 item-center flex-wrap">
       <div className="mr-3 text-sm text-gray-400 py-1">Today</div> {emojis}

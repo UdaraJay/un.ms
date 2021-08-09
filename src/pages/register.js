@@ -9,7 +9,11 @@ import ApplicationLogo from '@/components/ApplicationLogo';
 import GuestLayout from '@/components/Layouts/GuestLayout';
 import AuthValidationErrors from '@/components/AuthValidationErrors';
 import zxcvbn from 'zxcvbn';
-import { EyeIcon, EyeOffIcon, KeyIcon } from '@heroicons/react/solid';
+import {
+  EyeIcon,
+  EyeOffIcon,
+  InformationCircleIcon,
+} from '@heroicons/react/solid';
 
 const Register = () => {
   const { register } = useAuth({ middleware: 'guest' });
@@ -43,7 +47,6 @@ const Register = () => {
             <a>
               <div className="text-center">
                 <ApplicationLogo className="w-auto h-16 mb-2" />
-                un.ms
               </div>
             </a>
           </Link>
@@ -51,7 +54,11 @@ const Register = () => {
       >
         {/* Validation Errors */}
         <AuthValidationErrors className="mb-4" errors={errors} />
-
+        <p className="flex mb-6 text-sm text-gray-400">
+          <InformationCircleIcon className="w-5 h-5 mr-1.5 text-yellow-500" />
+          Currently in beta. The product may change significantly during this
+          period.
+        </p>
         <form onSubmit={submitForm}>
           {/* Name */}
 
