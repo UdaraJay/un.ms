@@ -6,12 +6,7 @@ const Footer = () => {
       <nav className="flex">
         <ol className="space-y-1.5 text-sm text-gray-400">
           <li>
-            <Link href="/terms-of-service">
-              <a>Discord</a>
-            </Link>
-          </li>
-          <li>
-            <Link href="/privacy-policy">
+            <Link href="https://github.com/UdaraJay/un.ms">
               <a>Open-source</a>
             </Link>
           </li>

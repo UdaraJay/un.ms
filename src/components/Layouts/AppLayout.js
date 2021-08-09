@@ -16,7 +16,7 @@ const navigation = [
 ];
 
 const secondaryNavigation = [
-  { name: 'About', href: '/about' },
+  // { name: 'About', href: '/about' },
   { name: 'Settings', href: '/settings' },
 ];
 
