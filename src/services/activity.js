@@ -15,7 +15,7 @@ export const create = async (data) => {
     data: data,
   });
 
-  mutate('/api/activity/list?page=1');
+  await mutate('/api/activity/list?page=1');
 
   return result;
 };

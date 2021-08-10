@@ -290,20 +290,20 @@ const WriteNote = () => {
               <span className="text-sm font-medium text-gray-900">
                 {isPublic ? 'Public' : 'Private'}
               </span>
-              {isPublic && (
-                <span className="ml-1 text-sm text-gray-500">
-                  (
-                  <a
-                    href={`https://un.ms/n/${note.slug}`}
-                    target="_blank"
-                    className="hover:text-indigo-500 select-all"
-                  >
-                    {`un.ms/n/${note.slug}`}
-                  </a>
-                  )
-                </span>
-              )}
             </Switch.Label>
+            {isPublic && (
+              <span className="ml-1 text-sm text-gray-500">
+                (
+                <a
+                  href={`https://un.ms/n/${note.slug}`}
+                  target="_blank"
+                  className="hover:text-indigo-500 select-all"
+                >
+                  {`un.ms/n/${note.slug}`}
+                </a>
+                )
+              </span>
+            )}
           </Switch.Group>
 
           <SaveButton
