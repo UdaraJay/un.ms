@@ -6,7 +6,7 @@ const ActivityTutorial = () => {
   if (activity.length > 2) return null;
 
   return (
-    <div className="flex mb-5 w-full justify-between text-gray-500 text-sm leading-relaxed border p-5 rounded-lg">
+    <div className="flex bg-white shadow-sm mb-8 w-full justify-between text-gray-500 text-sm leading-relaxed border p-5 rounded-lg">
       <div>
         <ol className="list-decimal list-inside">
           <li>Activities are short status messages</li>

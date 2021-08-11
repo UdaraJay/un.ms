@@ -68,7 +68,7 @@ const SingleActivity = ({ activity }) => {
       key={activity.id}
       className={`group mb-6 duration-200 ease-in-out ${
         highlight
-          ? 'border-0 border-indigo-100 rounded-xl py-3 px-5 -my-3 -ml-5 bg-gradient-to-bl from-transparent via-white to-yellow-100'
+          ? 'border-0 border-indigo-100 rounded-xl py-3 px-5 -my-3 -ml-5 bg-gradient-to-bl from-transparent to-white'
           : 'no'
       }`}
     >
@@ -82,7 +82,9 @@ const SingleActivity = ({ activity }) => {
         {decryptedData?.text}
       </div>
       <div className="group select-none flex item-center align-middle text-gray-400 mt-2 text-sm">
-        <div className="py-1.5 mr-2">{renderDate(activity.created_at)}</div>
+        <div className={`py-1.5 mr-2 ${highlight && 'text-indigo-500'}`}>
+          {renderDate(activity.created_at)}
+        </div>
         <button
           type="button"
           onClick={() => toggleHightlight(activity.id)}

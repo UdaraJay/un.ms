@@ -39,7 +39,7 @@ export default function Example({ header, children }) {
 
   return (
     <SecureProvider>
-      <div className="relative h-screen bg-white overflow-hidden flex">
+      <div className="relative h-screen bg-gray-50 overflow-hidden flex">
         <Transition.Root show={sidebarOpen} as={Fragment}>
           <Dialog
             as="div"
@@ -146,7 +146,7 @@ export default function Example({ header, children }) {
         <div className="hidden md:flex md:flex-shrink-0">
           <div className="w-60 flex flex-col">
             {/* Sidebar component, swap this element with another sidebar if you like */}
-            <nav className="bg-white pl-2 pt-6 pb-5 flex flex-col flex-grow overflow-y-auto">
+            <nav className="bg-gray-50 pl-2 pt-6 pb-5 flex flex-col flex-grow overflow-y-auto">
               <div className="flex-shrink-0 px-4 flex items-center">
                 <ApplicationLogo className="w-10 h-10" />
               </div>
@@ -193,8 +193,8 @@ export default function Example({ header, children }) {
 
         {/* Content area */}
         <div className="flex-1 flex flex-col">
-          <div className="w-full max-w-4xl mx-auto md:px-8 xl:px-0">
-            <div className="relative z-10 flex-shrink-0 h-16 bg-white flex mt-1.5 items-center sm:px-5 md:px-0">
+          <div className="w-full max-w-4xl mx-auto pt-5 md:px-8 xl:px-0">
+            <div className="relative z-10 flex-shrink-0 h-16 flex items-center sm:px-5 md:px-0">
               <button
                 className="px-4 text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-purple-500 md:hidden"
                 onClick={() => setSidebarOpen(true)}
@@ -219,7 +219,7 @@ export default function Example({ header, children }) {
                         type="text"
                         name="email"
                         id="email"
-                        className="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-10 sm:text-sm border-gray-300 rounded-md"
+                        className="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-10 sm:text-sm border-gray-200 rounded-md"
                         placeholder="Quick search..."
                       />
                     </div>

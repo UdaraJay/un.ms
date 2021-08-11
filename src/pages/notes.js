@@ -89,7 +89,7 @@ const Notes = () => {
   const renderNavigation = () => {
     return (
       <nav
-        className="bg-white py-3 flex items-center justify-between mt-5"
+        className="py-3 flex items-center justify-between mt-5"
         aria-label="Pagination"
       >
         <div className="hidden sm:block">

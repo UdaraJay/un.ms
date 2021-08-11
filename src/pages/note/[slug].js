@@ -240,8 +240,39 @@ const WriteNote = () => {
     if (markdown == null) return null;
 
     return (
-      <div className="w-full">
-        <div className="flex justify-between items-center pb-5">
+      <div className="max-w-lg bg-white rounded-lg p-7 shadow-sm border">
+        <TextareaAutosize
+          value={title}
+          onChange={onTitleChange}
+          minRows={1}
+          onKeyDown={onTitleEnter}
+          className={`resize-none max-w-md mb-1 p-0 border block text-gray-600
+    border-transparent outline-none focus:outline-none focus:ring-0 focus:border-transparent
+    placeholder-gray-300 text-xl font-semibold leading-relaxed overflow-hidden whitespace-pre-wrap shadow-none
+  `}
+          placeholder="Title"
+          autoFocus
+          disabled={saving}
+        ></TextareaAutosize>
+        <div className="text-gray-400 text-sm mb-3">
+          {moment.utc(note.created_at).format('dddd, MMMM Do YYYY, h:mm a')}
+        </div>
+        <div className="max-w-lg">
+          <Editor
+            id={note.slug}
+            defaultValue={markdown}
+            ref={editorRef}
+            placeholder={`You can start writing here. Note: Only the contents of your notes are encrypted (when notes are not public). The title remains unencrypted to make it easy for you to search and find notes.`}
+            autoFocus={markdown != ''}
+            headingsOffset={1}
+            onChange={onChange}
+            onSave={onSave}
+            className="text-sm"
+            dark={false}
+            theme={theme}
+          />
+        </div>
+        <div className="flex justify-between items-center mt-8">
           <Switch.Group as="div" className="flex items-center">
             <Switch
               checked={isPublic}
@@ -310,38 +341,6 @@ const WriteNote = () => {
             save={save}
             slug={note.slug}
             saving={saving}
-          />
-        </div>
-        <div className="mt-5">
-          <TextareaAutosize
-            value={title}
-            onChange={onTitleChange}
-            minRows={1}
-            onKeyDown={onTitleEnter}
-            className={`resize-none max-w-md mt-3 mb-2 p-0 border block text-gray-600
-    border-transparent outline-none focus:outline-none focus:ring-0 focus:border-transparent
-    placeholder-gray-300 text-3xl sm:text-5xl font-bold leading-relaxed overflow-hidden whitespace-pre-wrap shadow-none
-  `}
-            placeholder="Title"
-            autoFocus
-            disabled={saving}
-          ></TextareaAutosize>
-        </div>
-        <div className="text-gray-400 text-sm mb-10">
-          {moment.utc(note.created_at).format('dddd, MMMM Do YYYY, h:mm a')}
-        </div>
-        <div className="max-w-lg">
-          <Editor
-            id={note.slug}
-            defaultValue={markdown}
-            ref={editorRef}
-            placeholder={`You can start writing here. Note: Only the contents of your notes are encrypted (when notes are not public). The title remains unencrypted to make it easy for you to search and find notes.`}
-            autoFocus={markdown != ''}
-            headingsOffset={1}
-            onChange={onChange}
-            onSave={onSave}
-            dark={false}
-            theme={theme}
           />
         </div>
       </div>

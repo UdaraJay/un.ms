@@ -98,7 +98,7 @@ const Activity = () => {
           ref={activityInputRef}
           minRows={3}
           onKeyDown={onEnter}
-          className={`resize-none h-28 p-0 border block w-full text-gray-600
+          className={`resize-none bg-transparent h-28 p-0 border block w-full text-gray-600
             border-transparent outline-none focus:outline-none focus:ring-0 focus:border-transparent
             placeholder-gray-300 text-3xl sm:text-2xl font-medium duration-500 ease-in-out
             overflow-hidden whitespace-pre-wrap leading-snug shadow-none
