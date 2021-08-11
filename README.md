@@ -4,12 +4,13 @@
   <a href="https://un.ms"><img align="center" src="/public/unms-color.png" height="80px"/></a>
 </p>
 <p align="center">
-  <a href="https://un.ms">un.ms</a> is a simple tool for taking notes <br/> and logging activity across all your devices.
+  <a href="https://un.ms">un.ms</a> is a suite of tools for everyday internet users.<br/> It's private by design and focus on a stellar user experience for personal use.<br/>
+  A way to take notes, journal, share files and do a little accounting, <br/> all from the comfort of a browser.
 </p><br></br>
 
 ## Features
 
-- Client-side encryption with two keys (the user's data never leaves their device unencrypted.)
+- Private by design (Client-side encryption with two keys)
 - Minimal UI for writing, reading and sharing notes and logs
 - PWA you can install on desktop and mobile
 - Markdown import/export
