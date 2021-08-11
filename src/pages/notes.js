@@ -18,8 +18,6 @@ const Notes = () => {
 
   const notes = list(page);
 
-  if (!notes) return null;
-
   const renderNotes = () => {
     if (!notes || notes.data.length == 0)
       return (
@@ -87,6 +85,8 @@ const Notes = () => {
   };
 
   const renderNavigation = () => {
+    if (!notes) return null;
+
     return (
       <nav
         className="py-3 flex items-center justify-between mt-5"
