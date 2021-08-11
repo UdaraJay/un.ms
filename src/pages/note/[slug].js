@@ -20,7 +20,7 @@ import moment from 'moment-timezone';
 import _ from 'lodash';
 import pause from '@/lib/pause';
 import { deleteNote as deleteNoteApiCall } from '@/services/note';
-import theme from './editorTheme';
+import theme from '@/styles/editorTheme';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
