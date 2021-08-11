@@ -263,6 +263,7 @@ const WriteNote = () => {
                 <a
                   href={`https://un.ms/n/${note.slug}`}
                   target="_blank"
+                  rel="noopener noreferrer"
                   className="hover:text-indigo-500 select-all"
                 >
                   {`un.ms/n/${note.slug}`}
