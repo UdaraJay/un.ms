@@ -9,6 +9,9 @@ const TodaySummary = ({ appendText = () => {} }) => {
   const { data: activity } = list(1);
 
   useEffect(() => {
+    if (!activity) return;
+    if (!encryptionPackage) return;
+
     let active = true;
     let emojiCounterTracker = {};
     load();
