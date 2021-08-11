@@ -20,6 +20,7 @@ import moment from 'moment-timezone';
 import _ from 'lodash';
 import pause from '@/lib/pause';
 import { deleteNote as deleteNoteApiCall } from '@/services/note';
+import theme from './editorTheme';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
@@ -203,7 +204,7 @@ const WriteNote = () => {
     _.debounce((value) => {
       const markdown = value();
       setMarkdown(markdown);
-    }, 1000),
+    }, 2000),
     []
   );
 
@@ -234,13 +235,11 @@ const WriteNote = () => {
     setSaving(false);
   };
 
-  // if !public then decrypt...
+  const renderNote = () => {
+    if (!note) return null;
+    if (markdown == null) return null;
 
-  if (!note) return null;
-  if (markdown == null) return null;
-
-  return (
-    <AppLayout>
+    return (
       <div className="w-full">
         <div className="flex justify-between items-center pb-5">
           <Switch.Group as="div" className="flex items-center">
@@ -252,7 +251,7 @@ const WriteNote = () => {
                 'relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
               )}
             >
-              <span className="sr-only">Use setting</span>
+              <span className="sr-only">Private/Public</span>
               <span
                 className={classNames(
                   isPublic ? 'translate-x-5' : 'translate-x-0',
@@ -292,7 +291,7 @@ const WriteNote = () => {
               </span>
             </Switch.Label>
             {isPublic && (
-              <span className="ml-1 text-sm text-gray-500">
+              <span className="ml-1 hidden sm:visible text-sm text-gray-500">
                 (
                 <a
                   href={`https://un.ms/n/${note.slug}`}
@@ -319,10 +318,10 @@ const WriteNote = () => {
             onChange={onTitleChange}
             minRows={1}
             onKeyDown={onTitleEnter}
-            className={`resize-none max-w-sm leading-relaxed mt-3 mb-2 h-28 p-0 border block w-full text-gray-600
-            border-transparent outline-none focus:outline-none focus:ring-0 focus:border-transparent
-            placeholder-gray-300 text-4xl sm:text-3xl font-semibold overflow-hidden whitespace-pre-wrap shadow-none
-          `}
+            className={`resize-none max-w-md mt-3 mb-2 p-0 border block text-gray-600
+    border-transparent outline-none focus:outline-none focus:ring-0 focus:border-transparent
+    placeholder-gray-300 text-3xl sm:text-5xl font-bold leading-relaxed overflow-hidden whitespace-pre-wrap shadow-none
+  `}
             placeholder="Title"
             autoFocus
             disabled={saving}
@@ -333,7 +332,7 @@ const WriteNote = () => {
         </div>
         <div className="max-w-lg">
           <Editor
-            id={slug}
+            id={note.slug}
             defaultValue={markdown}
             ref={editorRef}
             placeholder={`You can start writing here. Note: Only the contents of your notes are encrypted (when notes are not public). The title remains unencrypted to make it easy for you to search and find notes.`}
@@ -341,11 +340,15 @@ const WriteNote = () => {
             headingsOffset={1}
             onChange={onChange}
             onSave={onSave}
+            dark={false}
+            theme={theme}
           />
         </div>
       </div>
-    </AppLayout>
-  );
+    );
+  };
+
+  return <AppLayout>{renderNote()}</AppLayout>;
 };
 
 export default WriteNote;

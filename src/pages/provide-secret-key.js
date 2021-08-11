@@ -2,14 +2,10 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Label from '@/components/Label';
-import Input from '@/components/Input';
 import Button from '@/components/Button';
 import AuthCard from '@/components/AuthCard';
 import ApplicationLogo from '@/components/ApplicationLogo';
 import GuestLayout from '@/components/Layouts/GuestLayout';
-import AuthValidationErrors from '@/components/AuthValidationErrors';
-import { DuplicateIcon } from '@heroicons/react/solid';
-import { getSecretKey, deleteSecretKeyFromDevice } from '@/hooks/cryptoStore';
 import { processAndStoreSecretKey } from '@/hooks/encryption';
 import { useAuth } from '@/hooks/auth';
 import { base642ab } from '@/lib/ab2base64';
@@ -21,16 +17,15 @@ const ProvideSecretKey = () => {
 
   const onChangeSecretKey = (e) => setSecretKey(e.target.value);
 
-  useEffect(() => {
-    async function getSecretKeyToState() {
-      const key = await getSecretKey();
-      // console.log('getSecretKey', key);
-      // const keyJwk = await crypto.subtle.exportKey('jwk', key);
-      // setSecretKey(keyJwk.k);
-    }
+  // useEffect(() => {
+  //   async function getSecretKeyToState() {
+  //     const key = await getSecretKey();
+  //     // const keyJwk = await crypto.subtle.exportKey('jwk', key);
+  //     // setSecretKey(keyJwk.k);
+  //   }
 
-    getSecretKeyToState();
-  }, []);
+  //   getSecretKeyToState();
+  // }, []);
 
   const submitForm = async (event) => {
     event.preventDefault();
@@ -79,7 +74,6 @@ const ProvideSecretKey = () => {
         </p>
 
         <form onSubmit={submitForm}>
-          {/* Email Address */}
           <div className="mt-4">
             <Label htmlFor="email">Secret key</Label>
             <div className="mt-3 flex rounded-md shadow-sm">

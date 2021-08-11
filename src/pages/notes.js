@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import AppLayout from '@/components/Layouts/AppLayout';
+import { useAuth } from '@/hooks/auth';
 import { list } from '@/services/note';
 import {
   ArrowNarrowRightIcon,
@@ -12,6 +13,7 @@ import moment from 'moment-timezone';
 import Link from 'next/link';
 
 const Notes = () => {
+  const { user } = useAuth({ middleware: 'auth' });
   const [page, setPage] = useState(1);
 
   const notes = list(page);
@@ -60,8 +62,8 @@ const Notes = () => {
           key={note.id}
           className="col-span-1 bg-white rounded-lg border shadow-sm divide-y divide-gray-200  hover:border-gray-300"
         >
-          <Link href={`/note/${note.slug}`}>
-            <a className="w-full flex min-h-full  items-start justify-between p-4 space-x-3">
+          <Link href="/note/[slug]" as={`/note/${note.slug}`}>
+            <a className="w-full flex min-h-full items-start justify-between p-4 space-x-3">
               <div className="flex h-40 flex-col justify-between break-word">
                 <h3 className="text-gray-900 text-sm font-medium">
                   {note.title || 'Untitled'}

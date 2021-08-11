@@ -205,8 +205,8 @@ export default function Example({ header, children }) {
                   aria-hidden="true"
                 />
               </button>
-              <div className="flex-1 flex justify-between px-4 md:px-0">
-                <div className="flex-1 flex">
+              <div className="flex-1 flex justify-end sm:justify-between md:px-0">
+                <div className="hidden sm:flex flex-1">
                   <form className="w-full" action="#" method="GET">
                     <div className="relative sm:w-40 rounded-md shadow-sm">
                       <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -225,7 +225,7 @@ export default function Example({ header, children }) {
                     </div>
                   </form>
                 </div>
-                <div className="ml-4 flex items-center md:ml-6">
+                <div className="flex items-center md:ml-6">
                   <NewNoteButton />
                   <LockUnlock />
                 </div>
