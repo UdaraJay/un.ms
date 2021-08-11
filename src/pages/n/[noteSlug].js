@@ -21,11 +21,15 @@ const PublicNote = () => {
       </Head>
       <div className="max-w-7xl mx-auto px-6 sm:px-20 lg:px-10">
         <div className="max-w-md mx-auto pt-16">
-          <Link href="/">
-            <a>
-              <ApplicationLogo className="w-7 h-7 stroke-none fill-current" />
-            </a>
-          </Link>
+          <div className="fixed bottom-5 left-5 px-2 py-1.5 z-50">
+            <Link href="/">
+              <a className="flex items-center text-xs text-gray-300 duration-200 hover:text-indigo-400">
+                <ApplicationLogo className="w-4 h-4 stroke-none fill-current mr-2" />
+                <span>created on un.ms</span>
+              </a>
+            </Link>
+          </div>
+
           <div className="mt-10 pb-40">
             <h1 className="font-bold text-gray-700 leading-tight text-4xl">
               {note.title}
