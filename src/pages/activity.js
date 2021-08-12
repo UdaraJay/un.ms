@@ -14,6 +14,8 @@ import Sponsor from '@/components/Layouts/Sponsor';
 
 const ActivityList = ({ index }) => {
   const { data } = list(index);
+
+  if (!data) return;
   return data.map((item) => <SingleActivity activity={item} key={item.id} />);
 };
 
@@ -81,17 +83,10 @@ const Activity = () => {
     }
   };
 
-  const renderActivity = () => {
-    if (!encryptionPackage) return null;
-
-    const pages = [];
-
-    for (let i = 1; i <= cnt; i++) {
-      pages.push(<ActivityList index={i} key={i} />);
-    }
-
-    return <>{pages}</>;
-  };
+  const pages = [];
+  for (let i = 1; i <= cnt; i++) {
+    pages.push(<ActivityList index={i} key={i} />);
+  }
 
   return (
     <AppLayout>
@@ -128,7 +123,7 @@ const Activity = () => {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            {renderActivity()}
+            {pages}
           </Transition>
           <button
             className="inline-flex mt-4 items-center px-3.5 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded-full text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
