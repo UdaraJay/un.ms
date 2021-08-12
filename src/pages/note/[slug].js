@@ -21,6 +21,7 @@ import _ from 'lodash';
 import pause from '@/lib/pause';
 import { deleteNote as deleteNoteApiCall } from '@/services/note';
 import theme from '@/styles/editorTheme';
+import TextEditor from '@/components/TextEditor';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
@@ -288,7 +289,7 @@ const WriteNote = () => {
             theme={theme}
           />
         </div>
-        <div className="flex bg-gray-50 px-8 py-5 rounded-b-lg justify-between items-center mt-8">
+        <div className="flex bg-gray-50 px-8 py-5 rounded-b-lg justify-between items-center mt-20">
           <Switch.Group as="div" className="flex items-center">
             <Switch
               checked={isPublic}

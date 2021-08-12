@@ -7,6 +7,9 @@
   <a href="https://un.ms">un.ms</a> is a suite of tools for everyday internet users.<br/> It's private by design and focus on a stellar user experience for personal use.<br/>
   A way to take notes, journal, share files and do a little accounting, <br/> all from the comfort of a browser.
 </p><br></br>
+<p align="center">
+  <a href="https://un.ms"><img align="center" src="/public/preview-2.png" height="400px"/></a>
+</p>
 
 ## Features
 

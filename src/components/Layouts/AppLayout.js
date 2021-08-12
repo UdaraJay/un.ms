@@ -1,18 +1,63 @@
 import { Fragment, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
-import { MenuAlt2Icon, XIcon, SearchIcon } from '@heroicons/react/solid';
+import {
+  MenuAlt2Icon,
+  XIcon,
+  SearchIcon,
+  DocumentTextIcon,
+  RssIcon,
+  TableIcon,
+  UserCircleIcon,
+  BookmarkIcon,
+} from '@heroicons/react/solid';
 import ApplicationLogo from '@/components/ApplicationLogo';
 import LockUnlock from '@/components/Layouts/LockUnlock';
 import NewNoteButton from '@/components/Layouts/NewNoteButton';
 import { useAuth } from '@/hooks/auth';
 import { SecureProvider } from '@/contexts/secure';
+import { tricked } from 'wink-sentiment/src/afinn-en-165';
 
 const navigation = [
   {
+    name: 'Profile',
+    href: '/coming-soon',
+    icon: UserCircleIcon,
+    color: 'text-purple-600',
+    background: 'bg-purple-200',
+    active: false,
+  },
+  {
     name: 'Activity',
     href: '/activity',
+    icon: RssIcon,
+    color: 'text-pink-600',
+    background: 'bg-pink-200',
+    active: true,
   },
-  { name: 'Notes', href: '/notes' },
+  {
+    name: 'Notes',
+    href: '/notes',
+    icon: DocumentTextIcon,
+    color: 'text-yellow-600',
+    background: 'bg-yellow-200',
+    active: true,
+  },
+  {
+    name: 'Tables',
+    href: '/coming-soon',
+    icon: TableIcon,
+    color: 'text-green-600',
+    background: 'bg-green-200',
+    active: false,
+  },
+  {
+    name: 'Bookmarks',
+    href: '/coming-soon',
+    icon: BookmarkIcon,
+    color: 'text-indigo-600',
+    background: 'bg-indigo-200',
+    active: false,
+  },
 ];
 
 const secondaryNavigation = [
@@ -50,10 +95,10 @@ export default function Example({ header, children }) {
           >
             <Transition.Child
               as={Fragment}
-              enter="transition-opacity ease-linear duration-300"
+              enter="transition-opacity ease-linear duration-200"
               enterFrom="opacity-0"
               enterTo="opacity-100"
-              leave="transition-opacity ease-linear duration-300"
+              leave="transition-opacity ease-linear duration-200"
               leaveFrom="opacity-100"
               leaveTo="opacity-0"
             >
@@ -61,30 +106,30 @@ export default function Example({ header, children }) {
             </Transition.Child>
             <Transition.Child
               as={Fragment}
-              enter="transition ease-in-out duration-300 transform"
+              enter="transition ease-in-out duration-200 transform"
               enterFrom="-translate-x-full"
               enterTo="translate-x-0"
-              leave="transition ease-in-out duration-300 transform"
+              leave="transition ease-in-out duration-200 transform"
               leaveFrom="translate-x-0"
               leaveTo="-translate-x-full"
             >
-              <div className="relative max-w-xs w-full bg-white pt-5 pb-4 flex-1 flex flex-col">
+              <div className="relative max-w-xs w-full bg-gray-50 pt-5 pb-4 flex-1 flex flex-col">
                 <Transition.Child
                   as={Fragment}
-                  enter="ease-in-out duration-300"
+                  enter="ease-in-out duration-200"
                   enterFrom="opacity-0"
                   enterTo="opacity-100"
-                  leave="ease-in-out duration-300"
+                  leave="ease-in-out duration-200"
                   leaveFrom="opacity-100"
                   leaveTo="opacity-0"
                 >
-                  <div className="absolute top-0 right-0 -mr-14 p-1">
+                  <div className="absolute top-0 right-0 mr-1 p-1">
                     <button
-                      className="h-12 w-12 rounded-full flex items-center justify-center focus:outline-none focus:bg-gray-600"
+                      className="h-12 w-12 rounded-full flex items-center justify-center focus:outline-none"
                       onClick={() => setSidebarOpen(false)}
                     >
                       <XIcon
-                        className="h-6 w-6 text-white"
+                        className="h-6 w-6 text-gray-600"
                         aria-hidden="true"
                       />
                       <span className="sr-only">Close sidebar</span>
@@ -105,10 +150,21 @@ export default function Example({ header, children }) {
                             item.current
                               ? 'bg-purple-50 border-purple-600 text-purple-600'
                               : 'border-transparent text-gray-600 hover:bg-gray-50 hover:text-gray-900',
-                            'group border-l-4 py-2 px-3 flex items-center text-base font-medium'
+                            'group border-l-4 py-1 px-5 flex items-center text-sm font-medium hover:opacity-80',
+                            !item.active && 'opacity-40'
                           )}
                           aria-current={item.current ? 'page' : undefined}
                         >
+                          {
+                            <div
+                              className={`flex justify-center items-center border 
+                              border-gray-50 h-7 w-7 rounded-lg mr-2 ${item.background}`}
+                            >
+                              <item.icon
+                                className={`h-4 w-4 fill-current ${item.color}`}
+                              />
+                            </div>
+                          }
                           {item.name}
                         </a>
                       ))}
@@ -118,7 +174,7 @@ export default function Example({ header, children }) {
                         <a
                           key={item.name}
                           href={item.href}
-                          className="group border-l-4 border-transparent py-2 px-3 flex items-center text-base font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50"
+                          className="group border-l-4 border-transparent py-1 px-5 text-sm flex items-center font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50"
                         >
                           {item.name}
                         </a>
@@ -127,7 +183,7 @@ export default function Example({ header, children }) {
                       <div
                         key="logout"
                         onClick={logout}
-                        className="group border-l-4 border-transparent py-2 px-3 flex items-center text-base font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50 cursor-pointer"
+                        className="group border-l-4 border-transparent py-1 px-5 flex items-center text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50 cursor-pointer"
                       >
                         Logout
                       </div>
@@ -148,7 +204,7 @@ export default function Example({ header, children }) {
             {/* Sidebar component, swap this element with another sidebar if you like */}
             <nav className="bg-gray-50 pl-2 pt-6 pb-5 flex flex-col flex-grow overflow-y-auto">
               <div className="flex-shrink-0 px-4 flex items-center">
-                <ApplicationLogo className="w-10 h-10" />
+                <ApplicationLogo className="w-8 h-8" />
               </div>
               <div className="flex-grow mt-5 flex flex-col">
                 <div className="flex-1 space-y-1">
@@ -159,10 +215,22 @@ export default function Example({ header, children }) {
                       className={classNames(
                         item.current
                           ? 'bg-purple-50 border-purple-600 text-purple-600'
-                          : 'border-transparent text-gray-600 hover:text-gray-900 hover:bg-gray-50',
-                        'group border-l-4 py-1 px-3 flex items-center text-sm font-medium'
+                          : 'border-transparent text-gray-600 hover:bg-gray-50 hover:text-gray-900',
+                        'group border-l-4 py-1 px-3 flex items-center text-sm font-medium',
+                        !item.active && 'opacity-40'
                       )}
+                      aria-current={item.current ? 'page' : undefined}
                     >
+                      {
+                        <div
+                          className={`flex justify-center items-center border 
+    border-gray-50 h-7 w-7 rounded-lg mr-2 ${item.background}`}
+                        >
+                          <item.icon
+                            className={`h-4 w-4 fill-current ${item.color}`}
+                          />
+                        </div>
+                      }
                       {item.name}
                     </a>
                   ))}
