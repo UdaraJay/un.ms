@@ -21,7 +21,6 @@ import _ from 'lodash';
 import pause from '@/lib/pause';
 import { deleteNote as deleteNoteApiCall } from '@/services/note';
 import theme from '@/styles/editorTheme';
-import TextEditor from '@/components/TextEditor';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
