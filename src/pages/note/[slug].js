@@ -1,6 +1,5 @@
 import { Fragment, useState, useEffect, useCallback, useRef } from 'react';
 import AppLayout from '@/components/Layouts/AppLayout';
-import Editor from 'rich-markdown-editor';
 import { useRouter } from 'next/router';
 import {
   getNote,
@@ -12,15 +11,16 @@ import {
   LockOpenIcon,
   LockClosedIcon,
   ChevronDownIcon,
+  CheckCircleIcon,
 } from '@heroicons/react/solid';
 import { encrypt, decrypt } from '@/hooks/encryption';
 import TextareaAutosize from 'react-textarea-autosize';
 import { Switch, Menu, Transition } from '@headlessui/react';
 import moment from 'moment-timezone';
-import _ from 'lodash';
 import pause from '@/lib/pause';
 import { deleteNote as deleteNoteApiCall } from '@/services/note';
-import theme from '@/styles/editorTheme';
+import FastEditor from '@/components/FastEditor';
+import { debounce } from 'lodash';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
@@ -35,40 +35,18 @@ const SaveButton = ({ isPublic, save, slug, saving }) => {
   };
 
   return (
-    <span className="relative z-0 inline-flex shadow-sm rounded-md">
-      <button
-        type="button"
-        onClick={() => save(isPublic)}
-        className="relative inline-flex items-center px-4 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500"
-      >
-        {saving && (
-          <svg
-            className="animate-spin -ml-0.5 mr-2 h-4 w-4 text-gray-500"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-          >
-            <circle
-              className="opacity-25"
-              cx="12"
-              cy="12"
-              r="10"
-              stroke="currentColor"
-              strokeWidth="4"
-            ></circle>
-            <path
-              className="opacity-75"
-              fill="currentColor"
-              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-            ></path>
-          </svg>
-        )}
-        Save changes
-      </button>
+    <span className="relative z-0 inline-flex rounded-md pl-3">
+      <div className="flex justify-center items-center mr-3">
+        <CheckCircleIcon
+          className={`h-5 w-5 text-gray-300 duration-200 ${
+            saving && 'animate-pulse text-yellow-300'
+          }`}
+        />
+      </div>
       <Menu as="span" className="-ml-px relative block">
         {({ open }) => (
           <>
-            <Menu.Button className="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500">
+            <Menu.Button className="relative inline-flex items-center px-1 py-1 rounded-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500">
               <span className="sr-only">Open options</span>
               <ChevronDownIcon className="h-5 w-5" aria-hidden="true" />
             </Menu.Button>
@@ -134,11 +112,9 @@ const WriteNote = () => {
   const note = getNote(slug);
 
   const [saving, setSaving] = useState(false);
-  const [unsaved, setUnsaved] = useState(false);
   const [isPublic, setIsPublic] = useState(false);
   const [title, setTitle] = useState('');
-  const [markdown, setMarkdown] = useState(null);
-  const editorRef = useRef(null);
+  const [content, setContent] = useState(null);
 
   // load the markdown, decrypt if necessary
   useEffect(() => {
@@ -149,14 +125,14 @@ const WriteNote = () => {
     // if the note has no data then
     // it's just blank
     if (note.data == null) {
-      setMarkdown('');
+      setContent('');
       return;
     }
 
     // public note
     if (note.public) {
       setIsPublic(note.public);
-      setMarkdown(note.data.markdown);
+      setContent(note.data.content);
       return;
     }
 
@@ -168,7 +144,6 @@ const WriteNote = () => {
     };
 
     async function load() {
-      // decrypt i
       const data = await decrypt(encryptionPackage, note.data).catch(() => {
         console.log('error');
       });
@@ -177,59 +152,56 @@ const WriteNote = () => {
       }
 
       // save here
-      setMarkdown(data.markdown);
+      setContent(data.content);
     }
   }, [note, encryptionPackage]);
-
-  const onTitleEnter = (e) => {
-    if (e.key === 'Enter') {
-      e.preventDefault();
-      editorRef.current.focusAtStart();
-    }
-  };
 
   const onTitleChange = (e) => {
     const title = e.target.value;
     setTitle(title);
+    debouncedTitleChange(slug, title);
   };
 
-  const togglePublic = () => {
-    const setPublicTo = !isPublic;
-    setIsPublic(setPublicTo);
-    togglePublicApiCall(note.slug);
-    save(setPublicTo);
-  };
-
-  const onChange = useCallback(
-    _.debounce((value) => {
-      const markdown = value();
-      setMarkdown(markdown);
-    }, 2000),
+  const debouncedTitleChange = useCallback(
+    debounce(async (slug, title) => {
+      await updateNote(slug, { title });
+    }, 250),
     []
   );
 
-  const onSave = async () => {
-    await save(isPublic);
+  const togglePublic = async () => {
+    const setPublicTo = !isPublic;
+    setIsPublic(setPublicTo);
+    await togglePublicApiCall(note.slug);
+    await save(setPublicTo, content);
   };
 
-  const save = async (isPublic) => {
+  const onChange = useCallback(
+    async (content) => {
+      await save(isPublic, content);
+      setContent(content);
+    },
+    [slug, isPublic, encryptionPackage]
+  );
+
+  const save = async (isPublic, content) => {
     setSaving(true);
 
     // if public: write plain markdown
     if (isPublic) {
-      await updateNote(slug, { title, data: { markdown } });
+      await updateNote(slug, { data: { content } });
       await pause(300);
       setSaving(false);
       return;
     }
 
     const encryptedPackage = await encrypt(encryptionPackage, {
-      markdown,
+      content,
     }).catch((err) => {
       // handle this
     });
 
-    await updateNote(slug, { title, data: encryptedPackage });
+    await updateNote(slug, { data: encryptedPackage });
     await pause(400);
 
     setSaving(false);
@@ -237,24 +209,34 @@ const WriteNote = () => {
 
   const renderNote = () => {
     if (!note) return null;
-    if (markdown == null) return null;
+    if (content == null) return null;
 
     return (
       <div className="max-w-lg bg-white rounded-lg shadow-sm border">
-        <div className="px-8 pt-7 pb-1">
-          <TextareaAutosize
-            value={title}
-            onChange={onTitleChange}
-            minRows={1}
-            onKeyDown={onTitleEnter}
-            className={`w-full resize-none mb-1 p-0 border block text-gray-600
+        <div className="px-6 pt-5 pb-1">
+          <div className="flex justify-between">
+            <TextareaAutosize
+              value={title}
+              onChange={onTitleChange}
+              minRows={1}
+              className={`w-full resize-none mb-0.5 p-0 border block text-gray-800
     border-transparent outline-none focus:outline-none focus:ring-0 focus:border-transparent
     placeholder-gray-300 text-xl font-semibold leading-relaxed overflow-hidden whitespace-pre-wrap shadow-none
   `}
-            placeholder="Title"
-            autoFocus
-            disabled={saving}
-          ></TextareaAutosize>
+              placeholder="Title"
+              autoFocus
+              disabled={saving}
+            ></TextareaAutosize>
+            <div>
+              <SaveButton
+                isPublic={isPublic}
+                save={save}
+                slug={note.slug}
+                saving={saving}
+              />
+            </div>
+          </div>
+
           <div className="text-gray-400 text-sm mb-3">
             {moment.utc(note.created_at).format('dddd, MMMM Do YYYY, h:mm a')}
             {isPublic && (
@@ -273,22 +255,15 @@ const WriteNote = () => {
           </div>
         </div>
 
-        <div className="max-w-lg px-8 ">
-          <Editor
-            id={note.slug}
-            defaultValue={markdown}
-            ref={editorRef}
-            placeholder={`You can start writing here. Note: Only the contents of your notes are encrypted (when notes are not public). The title remains unencrypted to make it easy for you to search and find notes.`}
-            autoFocus={markdown != ''}
-            headingsOffset={1}
+        <div className="max-w-lg px-6">
+          <FastEditor
+            id={slug}
             onChange={onChange}
-            onSave={onSave}
-            className="text-sm"
-            dark={false}
-            theme={theme}
+            content={content}
+            editable={true}
           />
         </div>
-        <div className="flex bg-gray-50 px-8 py-5 rounded-b-lg justify-between items-center mt-20">
+        <div className="flex bg-gray-50 px-6 py-4 rounded-b-lg justify-between items-center mt-5">
           <Switch.Group as="div" className="flex items-center">
             <Switch
               checked={isPublic}
@@ -338,13 +313,6 @@ const WriteNote = () => {
               </span>
             </Switch.Label>
           </Switch.Group>
-
-          <SaveButton
-            isPublic={isPublic}
-            save={save}
-            slug={note.slug}
-            saving={saving}
-          />
         </div>
       </div>
     );

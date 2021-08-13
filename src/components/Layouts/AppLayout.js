@@ -215,8 +215,8 @@ export default function Example({ header, children }) {
                       className={classNames(
                         item.current
                           ? 'bg-purple-50 border-purple-600 text-purple-600'
-                          : 'border-transparent text-gray-600 hover:bg-gray-50 hover:text-gray-900',
-                        'group border-l-4 py-1 px-3 flex items-center text-sm font-medium',
+                          : 'border-transparent text-gray-600',
+                        'group border-l-4 py-1 px-3 flex items-center text-sm font-medium duration-100 hover:opacity-75',
                         !item.active && 'opacity-40'
                       )}
                       aria-current={item.current ? 'page' : undefined}

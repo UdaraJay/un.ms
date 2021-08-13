@@ -33,11 +33,11 @@ class MyDocument extends Document {
           <link rel="apple-touch-icon" sizes="180x180" href="/unms-512.png" />
           <link rel="apple-touch-icon" sizes="167x167" href="/unms-512.png" />
 
-          <link rel="icon" type="image/png" sizes="32x32" href="/unms.png" />
-          <link rel="icon" type="image/png" sizes="16x16" href="/unms.png" />
+          <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png" />
+          <link rel="icon" type="image/png" sizes="16x16" href="/favicon.png" />
           <link rel="manifest" href="/manifest.json" />
           <link rel="mask-icon" href="/unms.svg" color="#5bbad5" />
-          <link rel="shortcut icon" href="/unms.ico" />
+          <link rel="shortcut icon" type="image/png" href="/favicon.png" />
         </Head>
         <body className="antialiased">
           <Main />

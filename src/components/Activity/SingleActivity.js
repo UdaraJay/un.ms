@@ -45,8 +45,6 @@ const SingleActivity = ({ activity }) => {
     deleteActivityApiCall(id);
   };
 
-  if (!activity) return null;
-
   const renderDate = (date) => {
     const d = new Date(date);
     const now = new Date();
@@ -61,6 +59,7 @@ const SingleActivity = ({ activity }) => {
     return moment.utc(activity.created_at).local().format('MMM Do YYYY, h:MMa');
   };
 
+  if (!activity) return null;
   if (deleted) return null;
 
   return (
